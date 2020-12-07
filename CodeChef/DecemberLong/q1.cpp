@@ -4,7 +4,7 @@ int solve(int d1,int d2,int v1, int v2,int day, int count)
 {
 	while(day>0)
 	{
-		cout<<day<<" ";
+		//cout<<day<<" ";
 		if(d1>0)
 		{
 			day=day-v1;
