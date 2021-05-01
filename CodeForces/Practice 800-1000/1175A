@@ -1,0 +1,6 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define ll long long
+bool ex[2];
+int main()
+{
