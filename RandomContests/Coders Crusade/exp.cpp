@@ -1,11 +1,13 @@
 #include<bits/stdc++.h>
 using namespace std;
+#define ll long long
 int main()
 {
-	int t=0;
+	ll t=0;
 	cin>>t;
 	while(t--)
 	{
-		
+		ll n=0;
+		cin>>n;
 	}
 }
