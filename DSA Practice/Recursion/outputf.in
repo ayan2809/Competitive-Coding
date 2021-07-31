@@ -1,0 +1,8 @@
+3The 3! possible permutations with 3 elements:
+1 2 3
+1 3 2
+2 1 3
+2 3 1
+3 1 2
+3 2 1
+After loop: 1 2 3

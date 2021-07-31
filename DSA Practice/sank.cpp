@@ -1,88 +1,121 @@
-#include<iostream>
-#include<algorithm>
+#include<bits/stdc++.h>
 using namespace std;
+struct Node{
+public:
+    int transactDate;
+    string location;
+    Node *next;
+}*first=NULL;
+
+int maximum=0;
 
 
-bool pt_comp(pair<int, int> a, pair<int, int> b)
+void push(Node ** head,int trans, string location)
 {
-    if(a.first==b.first)
-        return a.second<b.second;
-    return a.first<b.first;
+    
+
+    Node* node= new Node();
+    node->transactDate= newData;
+    node-> location=location;
+    node->next=*head;
+    *head= node;
+
 }
 
-void search(pair <int, int> arr[], int n)
+void Display(Node *p)
 {
-    int y=-1;
-    int start=-1;
-    int end=-1;
-    int points=0;
-    int length=0;
-    
-    for(int i=0; i<n; i++)
+    if(p!=NULL)
     {
-        int j=i+1;
-        while(arr[j].second==arr[i].second && j<n)
-            j++;
-        int l=j-i;
-        if(points<l)
-        {
-            y=arr[i].second;
-            start=arr[i].first;
-            end=arr[j-1].first;
-            points=j-i;
-            length=arr[j-1].first-arr[i].first;
-        }
-        else if(points==1)
-        {
-            if(arr[j-1].first-arr[i].first>length)
-            {
-                y=arr[i].second;
-                start=arr[i].first;
-                end=arr[j-1].first;
-                points=j-1;
-                length=arr[j-1].first-arr[i].first;
-                
-            }
-        }
+        cout<<p->data<<" ";
+        Display(p->next); 
     }
-    for(int i=0; i<n; i++)
-    {
-        if(arr[i].second==y)
-        {
-            cout<<arr[i].first<<endl;
-            cout<<arr[i].second<<endl;
-            break;
-        }
-        break;
-    }
+}
 
-    cout<<y<<endl<<end<<endl<<y<<endl;
+
+Node* SortedMerge(Node* a, Node* b);
+void FrontBackSplit(Node* source,
+                    Node** frontRef, Node** backRef);
+ 
+
+void MergeSort(Node** headRef)
+{
+    Node* head = *headRef;
+    Node* a;
+    Node* b;
+ 
     
+    if ((head == NULL) || (head->next == NULL)) {
+        return;
+    }
+ 
     
+    FrontBackSplit(head, &a, &b);
+ 
    
+    MergeSort(&a);
+    MergeSort(&b);
+ 
+    
+    *headRef = SortedMerge(a, b);
 }
+ 
 
+Node* SortedMerge(Node* a, Node* b)
+{
+    Node* result = NULL;
+ 
+    /* Base cases */
+    if (a == NULL)
+        return (b);
+    else if (b == NULL)
+        return (a);
+ 
+
+    if (a->data <= b->data) {
+        result = a;
+        result->next = SortedMerge(a->next, b);
+    }
+    else {
+        result = b;
+        result->next = SortedMerge(a, b->next);
+    }
+    return (result);
+}
+ 
+
+void FrontBackSplit(Node* source,
+                    Node** frontRef, Node** backRef)
+{
+    Node* fast;
+    Node* slow;
+    slow = source;
+    fast = source->next;
+ 
+    
+    while (fast != NULL) {
+        fast = fast->next;
+        if (fast != NULL) {
+            slow = slow->next;
+            fast = fast->next;
+        }
+    }
+ 
+    *frontRef = source;
+    *backRef = slow->next;
+    slow->next = NULL;
+}
+ 
 
 int main()
 {
-    int n;
-    cin>>n;
-    pair<int,int> arr[100]; 
-    
-    
-    for(int i=0; i<n; i++)
+    int transacArr[]={12072021,16062021,04062021,15072021,24052021,22062021};
+    string location[]={"chennai","banagalore","dehradun","jaipur", "hyderabad", "bangalore", "pune"}
+
+    Node *head=NULL;
+    for(int i=0;i<sizeof((transacArr)/sizeof(transacArr[0]));i++)
     {
-        int x,y;
-        cin>>x>>y;
-        
-        arr[i]=make_pair(x,y);
-        
+        push(&head,transacArr[i],location[i]);
     }
-    
-    sort(arr,arr+n,pt_comp);
-    search(arr,n);
-   
-    
-    
-    
+
+
 }
