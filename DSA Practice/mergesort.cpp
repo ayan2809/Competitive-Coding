@@ -9,6 +9,12 @@ using namespace std;
 void solve()
 {
 	cout<<1<<endl;
+	unordered_set<int, int> umap;
+	umap[9]=5;
+	for(auto it: umap)
+	{
+		cout<<it.first<<endl;
+	}
 }
 int main(){
 	IOS;

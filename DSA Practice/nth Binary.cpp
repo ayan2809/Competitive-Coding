@@ -6,9 +6,14 @@ using namespace std;
 #define pb push_back
 #define pf push_front
 #define endl "\n"
-void solve()
+void findNthDigit(int n) 
 {
-	cout<<1<<endl;
+    string s;
+    for(int i=1;i<n;i++)
+    {
+        s+=to_string(i);
+    }
+   cout<<(s[n-1]-48)<<endl;
 }
 int main(){
 	IOS;
@@ -16,6 +21,8 @@ int main(){
 	cin>>t;
 	while(t--)
 	{
-		solve();
+		int n=0;
+		cin>>n;
+		findNthDigit(n);
 	}
 }

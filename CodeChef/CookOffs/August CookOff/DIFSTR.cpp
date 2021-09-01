@@ -8,7 +8,26 @@ using namespace std;
 #define endl "\n"
 void solve()
 {
-	cout<<1<<endl;
+	int n=0;
+	cin>>n; 
+	vector<string> s(n);
+	for(int i=0;i<n;i++)
+	{
+		cin>>s[i];
+	}
+
+	string ans="";
+	int j=0;
+	for(int i=0;i<n;i++)
+	{
+		if(s[i][j]=='0')
+			ans+="1";
+		else
+			ans+="0";
+
+		j++;
+	}
+	cout<<ans<<endl;
 }
 int main(){
 	IOS;

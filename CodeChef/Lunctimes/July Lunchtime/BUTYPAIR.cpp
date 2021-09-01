@@ -8,14 +8,16 @@ void solve()
     ll n=0;
     cin>>n;
     vector<ll> a(n);
+    map<ll,ll> umap;
     for(int i=0;i<n;i++)
     {
         cin>>a[i];
+        umap[a[i]]+=1;
     }
-    for(int i=0;i<n;i++)
-    {
-        for(int j)
-    }
+    ll ans=1ll*n*(n-1);
+    for(auto it: umap)
+        ans-=it.second*(it.second-1);
+    cout<<ans<<endl;
 
 }
 int main()
