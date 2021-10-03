@@ -10,13 +10,18 @@ void solve()
 {
 	cout<<1<<endl;
 }
-
 int main(){
+	time_t start, end;
+	time(&start);
 	IOS;
 	ll t=0;
-    cin>>t;
-    while(t--)
-    {
-        solve();
-    }
+	cin>>t;
+	while(t--)
+	{
+		solve();
+	}
+	time(&end);
+	double time_taken = double(end - start);
+	cout << "Time taken by program is : " << fixed
+         << time_taken << setprecision(5);
 }

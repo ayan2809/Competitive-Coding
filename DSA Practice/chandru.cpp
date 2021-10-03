@@ -1,49 +1,44 @@
-#include <bits/stdc++.h>
-using namespace std;
-#define ll long long
+#include<bits/stdc++.h>
+using namespace std; 
 #define IOS ios::sync_with_stdio(0); cin.tie(0);
-#define mod (ll)(246060)
+#define ll long long
+#define MOD 1000000007
+#define pb push_back
+#define pf push_front
 #define endl "\n"
-
-ll add(ll a, ll b, ll p=mod){return (a%p + b%p)%p;}
-ll neg(ll a,ll p=mod){return (p-(a%p))%p;}
-ll sub(ll a,ll b,ll p=mod){return add(a,neg(b));}
-
-int main()
+void solve()
 {
+    string s="";
+    cin>>s;
+    int number=0;
+    string ans1="";
+    string g="0";
+    for(int i=0;i<s.length();i++)
+    {
+        if(s[i]>=48 && s[i]<=57)
+        {
+            g=g+s[i]; 
+            continue;
+        }
+        else
+        {
+            int x=
+            number+=stoi(g);
+            g="0";
+        }
+        ans1+=s[i];
+    }
+    number+=stoi(g);
+    cout<<ans1<<endl;
+    cout<<number<<endl;
+}
+
+int main(){
     IOS;
-    ll n,value=0;
-    cin>>n;
-    //assert(1<=n && n<=1000000);
-    ll arr[n+5];
-    for(ll i=0;i<n;i++)
+    ll t=0;
+    cin>>t;
+    while(t--)
     {
-        cin>>arr[i];
-        //assert(-1e18<=arr[i] && arr[i]<=1e18);
+        solve();
     }
-    value=0;
-    unordered_map<ll,ll> umap;
-    for(ll i=0;i<n;i++)
-    {
-        if(arr[i]<0)
-        {
-            arr[i]=(-1*arr[i]);
-            value = sub(value,arr[i]);
-        }
-        else
-        {
-            value = add(value,arr[i]);
-        }
-        if(umap[value])
-        {
-            cout<<"Yes"<<endl;
-        }
-        else
-        {
-            cout<<"No"<<endl;  
-        }
-        umap[value]=1;
-    }
-  
-    return 0;
 }
