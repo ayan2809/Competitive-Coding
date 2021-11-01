@@ -6,19 +6,17 @@ using namespace std;
 #define pb push_back
 #define pf push_front
 #define endl "\n"
-inline int max(int a, int b)
+int fib(int n)
 {
-	return (a>b)?a:b;
-}
+	if(n==0)
+		return 0;
+	if(n==1)
+		return 1;
 
-int getValue(int z,int x = 0, int y = 0){  
-    return (x + y + z); 
+	int a=fib(n-1);
+	int b=fib(n-2);
+	return a+b;
 }
-void solve(){
-	cout<<getValue(1,2,3);
-    //return 0;
-}
-
 int main(){
 	time_t start, end;
 	time(&start);
@@ -27,7 +25,7 @@ int main(){
 	cin>>t;
 	while(t--)
 	{
-		solve();
+		cout<<fib(10)<<endl;
 	}
 	time(&end);
 	double time_taken = double(end - start);

@@ -6,19 +6,15 @@ using namespace std;
 #define pb push_back
 #define pf push_front
 #define endl "\n"
-inline int max(int a, int b)
+bool isSorted(int arr[], int size)
 {
-	return (a>b)?a:b;
+	*arr=5;
+	(arr)++;
+	*arr=6;
+	//*arr=*arr+1;
+	
+	return 0;
 }
-
-int getValue(int z,int x = 0, int y = 0){  
-    return (x + y + z); 
-}
-void solve(){
-	cout<<getValue(1,2,3);
-    //return 0;
-}
-
 int main(){
 	time_t start, end;
 	time(&start);
@@ -27,7 +23,16 @@ int main(){
 	cin>>t;
 	while(t--)
 	{
-		solve();
+		int n=0;
+		cin>>n;
+		int arr[n];
+		for(auto i=0;i<n;)
+		{
+			cin>>arr[i++];
+		}
+		cout<<isSorted(arr,n)<<endl;
+		for(int i=0;i<n;i++)
+		cout<<arr[i]<<endl;
 	}
 	time(&end);
 	double time_taken = double(end - start);

@@ -6,26 +6,31 @@ using namespace std;
 #define pb push_back
 #define pf push_front
 #define endl "\n"
-
-// int getSum(int n)
-// {
-//     //int sum=0;
-    
-    
-// }
+void spiralPrint(int **input, int nRows, int nCols)
+{
+    int n=nRows, m=nCols;
+    int rs=0,re=n-1;
+    for(int i=0;i<nRows*nCols;i++)
+    {
+        cout<<ans[i]<<" ";
+    }
+        
+}
 void solve()
 {
-    // int n=0;
-    // cin>>n;
-    // int i=n;
-    // for(int i=0;i<2*n-1;i++)
-    // {
-    //     for(int j=)
-    // }
-    while(1!=0)
-    {
-        cout<<1<<endl;
-    }
+   
+   int row=0, col=0;
+   cin>>row>>col;
+   int **matrix = new int *[row];
+   for(int i=0;i<row;i++)
+   {
+        matrix[i] = new int[col];
+        for(int j=0;j<col;j++)
+        {
+            cin >> matrix[i][j];
+        }
+   }
+    spiralPrint(matrix, row, col);
     
 
 }
