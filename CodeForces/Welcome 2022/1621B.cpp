@@ -8,8 +8,10 @@ using namespace std;
 #define endl "\n"
 void solve()
 {
-	cout<<1<<endl;
-	cout<<"Hello world";
+	int n=0;
+	int l=0,r=0,c=0;
+	cin>>l>>r>>c;
+
 }
 int main(){
 	time_t start, end;
@@ -23,6 +25,6 @@ int main(){
 	}
 	time(&end);
 	double time_taken = double(end - start);
-	cout << "Time taken by program is : " << fixed
-         << time_taken << setprecision(5);
+	// cout << "Time taken by program is : " << fixed
+ //         << time_taken << setprecision(5);
 }

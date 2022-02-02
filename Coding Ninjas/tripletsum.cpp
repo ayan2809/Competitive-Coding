@@ -8,8 +8,34 @@ using namespace std;
 #define endl "\n"
 void solve()
 {
-	cout<<1<<endl;
-	cout<<"Hello world";
+	int n=0,num=0;
+	cin>>n;
+	int arr[n];
+	for(int i=0;i<n;i++)
+	{
+		cin>>arr[i];
+	}
+	cin>>num;
+	map<int, int> umap;
+	for(int i=0;i<n;i++)
+	{
+		umap[arr[i]]+=1;
+	}
+	int ans=0;
+	for(int i=0;i<n;i++)
+	{
+		for(int j=i+1;j<n;j++)
+		{
+			int x=num-(arr[i]+arr[j]);
+			if(x>arr[i] && x>arr[j])
+			{
+				//cout<<x<<endl;
+				ans+=umap[x];
+			}
+		}
+	}
+	cout<<ans<<endl;
+
 }
 int main(){
 	time_t start, end;
