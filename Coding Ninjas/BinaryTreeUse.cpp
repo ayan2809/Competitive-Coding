@@ -292,6 +292,44 @@ BinaryTreeNode<int> *buildTreeHelper(int *pre, int *in, int inS, int inE, int pr
 	return root;
 }
 
+// postorder + Inorder approach
+BinaryTreeNode<int>* tree(int *postorder, int *inorder,int ps,int pe, int is, int ie)
+{
+    if(ps>pe)
+        return NULL;
+    
+    
+    BinaryTreeNode<int>* root=new BinaryTreeNode<int>(postorder[pe]);
+    
+     int k = 0; 
+    for(int i = is; i <= ie; i++)
+    { if(postorder[pe] == inorder[i])
+        { k = i; break; } 
+    }
+    
+    int lps=ps;    //left prestart
+    int lis=is;  //left instart
+    int  lie=k-1;   //left inend
+    int lpe= lie-lis+lps; //left  pre end
+    
+    int rps=lpe+1; //right prestart
+    int rpe=pe-1;//  right preend
+    int ris=k+1;  //right instart
+    int rie=ie;   //right inend
+    
+    root->left=tree(postorder,inorder,lps,lpe,lis,lie);
+    root->right=tree(postorder,inorder,rps,rpe,ris,rie);
+    
+    return root;
+    
+    
+}
+BinaryTreeNode<int>* buildTree(int *postorder, int postLength, int *inorder, int inLength) {
+    return tree (postorder,inorder,0,postLength-1,0,inLength-1);
+}
+
+// 
+
 // diameter of the binary tree
 int heightOfTree(BinaryTreeNode<int>*root)
 {
@@ -310,6 +348,328 @@ int diameter(BinaryTreeNode<int>*root)
 	return max(ans1,max(ans2, ans3));
 }
 
+// minimum and maximum of Btree
+void solve_min_max(BinaryTreeNode<int>* root, int &maxi, int &mini)
+{
+    if(root==NULL)
+        return;
+    maxi=max(maxi, root->data);
+    mini=min(mini, root->data);
+    solve_min_max(root->left, maxi, mini);
+    solve_min_max(root->right, maxi, mini);
+}
+pair<int, int> getMinAndMax(BinaryTreeNode<int> *root) {
+    int maxi=INT_MIN, mini=INT_MAX-1;
+    pair<int,int> ans;
+    solve_min_max(root, maxi, mini);
+    ans.first=mini;
+    ans.second=maxi;
+    return ans;
+	// Write your code here
+}
+
+// sum of nodes in btree
+int getSum(BinaryTreeNode<int>* root) {
+    if(root==NULL)
+        return 0;
+    int sum=0;
+    sum+=root->data;
+    sum+=getSum(root->left)+getSum(root->right);
+    return sum;
+    // Write your code here
+}
+
+// check if tree is balanced or not
+bool isBalanced(BinaryTreeNode<int> *root) {
+    int leftHeight=0;
+    int rightHeight=0;
+    if(root==NULL)
+        return 1;
+    leftHeight=heightOfTree(root->left);
+    rightHeight=heightOfTree(root->right);
+     if (abs(leftHeight - rightHeight) <= 1 && isBalanced(root->left) && isBalanced(root->right))
+        return 1;
+    
+    return 0;
+	// Write your code here
+}
+
+// level order traversal
+void printLevelWise(BinaryTreeNode<int> *root) {
+    queue<BinaryTreeNode<int>*> pending;
+    
+    pending.push(root);
+    while(pending.size()!=0)
+    {
+        BinaryTreeNode <int>* front= pending.front();
+        pending.pop();
+        cout<<front->data<<":";
+        if(front->left!=NULL)
+        {
+        	BinaryTreeNode<int>* leftt= front->left;
+            cout<<"L:"<<leftt->data<<",";
+        	pending.push(leftt);
+        }
+        else
+        {
+            cout<<"L:"<<-1<<",";
+        }
+        if(front->right!=NULL)
+        {
+        	BinaryTreeNode<int>* rightt = front->right;
+            cout<<"R:"<<rightt->data;
+       		pending.push(rightt);
+        }
+        else
+        {
+             cout<<"R:"<<-1;
+        }
+        cout<<endl;
+        
+    }
+}
+
+
+// remove leaf nodes
+void solve_remove_leaf(BinaryTreeNode<int>* root, BinaryTreeNode<int>* &ans)
+{
+    if(root==NULL)
+        return;
+    if(root->left==NULL && root->right==NULL)
+    {
+        return;
+    }
+    else
+    {
+        ans= new BinaryTreeNode<int>(root->data);
+    }
+    solve_remove_leaf(root->left,ans->left);
+    solve_remove_leaf(root->right,ans->right);
+}
+BinaryTreeNode<int>* removeLeafNodes(BinaryTreeNode<int> *root) {
+    // Write your code here
+    BinaryTreeNode<int>*ans;
+    solve_remove_leaf(root,ans);
+    return ans;
+}
+
+
+// zigzag tree
+vector<vector<int>> res;
+void solve_zig_zag(BinaryTreeNode<int> *root, int k)
+    {
+        if(root==NULL)
+            return;
+        if(k==res.size())
+        {
+            res.push_back({});
+        }
+        if(k%2==0)
+        {
+            res[k].push_back(root->data);
+        }
+        else
+        {
+            res[k].insert(res[k].begin() + 0, root->data);
+        }
+        solve_zig_zag(root->left,k+1);    
+        solve_zig_zag(root->right, k+1); 
+
+    }
+void zigZagOrder(BinaryTreeNode<int> *root) {
+    // Write your code here
+    solve_zig_zag(root, 0);
+    for(auto it: res)
+    {
+        for(auto itr: it)
+        {
+            cout<<itr<<" ";
+        }
+        cout<<endl;
+    }
+}
+
+
+// printing nodes without sibling
+void printNodesWithoutSibling(BinaryTreeNode<int> *root) {
+    // Write your code here
+    if(root==NULL)
+        return;
+    // cout<<root->data<<" ";
+    // if((root->left == NULL && root->right !=NULL ) ||(root->right==NULL && root->left!=NULL ) )
+    //     cout<<root->data<<" ";
+    if (root->left != NULL && root->right != NULL)
+    {
+        printNodesWithoutSibling(root->left);
+        printNodesWithoutSibling(root->right);
+    }
+
+    else if (root->right != NULL)
+    {
+        cout << root->right->data << " ";
+        printNodesWithoutSibling(root->right);
+    }
+ 
+    else if (root->left != NULL)
+    {
+        cout << root->left->data << " ";
+        printNodesWithoutSibling(root->left);
+    }
+   
+}
+
+// search in BST
+bool searchInBST(BinaryTreeNode<int> *root , int k) {
+	// Write your code here
+    if(root==NULL)
+        return false;
+    if(root->data==k)
+        return true;
+    if(root->data<k)
+    {
+        return searchInBST(root->right,k) || searchInBST(root->left, k);
+    }
+    else if(root->data>k)
+    {
+        return searchInBST(root->left,k) || searchInBST(root->right, k);
+    }
+}
+
+
+// print elements in range for BST
+void elementsInRangeK1K2(BinaryTreeNode<int>* root, int k1, int k2) {
+	// Write your code here
+	if(root==NULL)
+        return;
+    // cout<<root->data<<" ";
+       
+    
+    if(root->data>k1)
+    {
+    	elementsInRangeK1K2(root->left,k1,k2);
+        // elementsInRangeK1K2(root->right,k1,k2);
+    }
+    if(root->data>=k1 && root->data<=k2)
+    {
+        cout<<root->data<<" ";
+    }
+    
+	if(root->data<k2)
+    {
+        elementsInRangeK1K2(root->right,k1,k2);
+        
+    }
+    // else
+    // {
+    //     elementsInRangeK1K2(root->left,k1,k2);
+    //     elementsInRangeK1K2(root->right,k1,k2);
+    // }
+     
+}
+
+// check if btree in BST or not
+bool solve_checkBST(BinaryTreeNode<int> *root, int mini, int maxi)
+{
+    if(root==NULL)
+        return true;
+
+    
+        if(root->data<=mini || root->data>=maxi)
+        {
+            return false;
+        }
+    
+    // maxi=max(maxi, root->data);
+    // mini= min(mini, root->data);
+    return solve_checkBST(root->left, mini, root->data) && solve_checkBST(root->right, root->data, maxi);
+   
+}
+bool isBST(BinaryTreeNode<int> *root) {
+    bool ans=solve_checkBST(root, INT_MIN, INT_MAX);
+    return ans;
+	// Write your code here
+}
+
+
+// construct BST from sorted array
+BinaryTreeNode<int>* solve(int *input, int si, int ei)
+{
+    if(si>ei)
+    {
+        // BinaryTreeNode<int> *x = new BinaryTreeNode<int>(NULL);
+        return NULL;
+    }
+    int mid = si + (ei - si) / 2;
+    BinaryTreeNode<int> *temp = new BinaryTreeNode<int>(input[mid]);
+    temp->left=solve(input, si, mid-1);
+    temp->right=solve(input,mid+1, ei);
+    return temp;
+}
+BinaryTreeNode<int>* constructTree(int *input, int n) {
+	// Write your code here
+    return solve(input, 0, n-1);
+    
+}
+
+// construct BST from sorted LL
+void solve_LL(BinaryTreeNode<int>* root, Node <int>* &ans, Node<int>* &x)
+{
+    if(root==NULL)
+        return;
+    solve_LL(root->left, ans,x);
+    // if(ans==NULL)
+    // {
+    //     Node<int>* temp= new Node<int>(root->data);
+    //     ans=temp;
+    //     x=ans;
+    // }
+    // else
+    // {
+    // 	Node<int>* temp= new Node<int>(root->data);
+    //     ans->next=temp;
+    //     ans=ans->next;
+    // }
+    cout<<root->data<<" ";
+    solve_LL(root->right, ans,x);
+}
+Node<int>* constructLinkedList(BinaryTreeNode<int>* root) {
+    Node<int>* ans;
+    Node<int>* x;
+    solve_LL(root,ans,x);
+    return x;
+	// Write your code here
+}
+
+// root to node path in btree
+vector<int>* getRootToNodePath(BinaryTreeNode<int>* root, int data)
+{
+	if(root==NULL)
+	{
+		return NULL;
+	}
+	if(root->data==data)
+	{
+		vector<int>* output = new vector<int>();
+		output->push_back(root->data);
+		return output;
+	}
+	vector<int> *leftOutput= getRootToNodePath(root->left, data);
+	if(leftOutput!=NULL)
+	{
+		leftOutput->push_back(root->data);
+		return leftOutput;
+	}
+
+	vector<int>* rightOutput= getRootToNodePath(root->right, data);
+	if(rightOutput!=NULL)
+	{
+		rightOutput->push_back(root->data);
+		return rightOutput;
+	}
+	else {
+		return NULL;
+	}
+}
 
 BinaryTreeNode<int>* buildTree(int *preorder, int preLength, int *inorder, int inLength) {
     // vector<int> pre,inor;
