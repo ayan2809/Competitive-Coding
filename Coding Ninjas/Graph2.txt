@@ -1,0 +1,20 @@
+Tree is a graph which is connected and has no cycle
+
+A spanning tree is a tree which contains all the vertices when a graph is given.
+
+For a given graph we can have multiple spanning trees
+
+For a spanning tree:
+V=n
+E=n-1
+
+What are MST?
+It is a weighted graph ka spanning tree
+
+MST= Weighted, Connected and Undirected
+We have included the edges only having the minimum weight
+
+Kruskals Algorithm
+THis algorithm helps in caculating the MST of a given graph. 
+a counter will maintain the number of edges it has picked. 
+
